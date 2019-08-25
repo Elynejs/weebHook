@@ -28,7 +28,7 @@ const scrap = () => {
         .then((body) => {
             body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
                 rawStr = body(elem).text();
-                str.push(rawStr.replace(/[\n\r]/g, ' ').trim());
+                str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
                 }
             )}
             )
@@ -59,8 +59,8 @@ client.on('Message', msg => {
     const args = msg.content.slice(token.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     if (command === 'add') {
-        if (args[0]) {
-            track.push(args[0]);
+        if (args.length) {
+            track.push(args.replace(/,+/g, ' '));
         } else {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.'+
             '\nNote that this is case sensitive so just copy/paste it from the site.');

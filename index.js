@@ -61,6 +61,7 @@ client.on('Message', msg => {
     if (command === 'add') {
         if (args.length) {
             track.push(args.replace(/,+/g, ' '));
+            msg.channel.send('Added ' + args.replace(/,+/g, ' ') + ' to your list of tracked manga.');
         } else {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.'+
             '\nNote that this is case sensitive so just copy/paste it from the site.');

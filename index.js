@@ -21,5 +21,5 @@ rp(options)
         });
     })
     .catch((err) => {
-        console.log('HTTP Request encountered an error. This is likely due to a server maintenance. Here is the error code :' + err);
+        console.log('HTTP Request encountered an error. This is likely due to a server maintenance.' + err);
     });

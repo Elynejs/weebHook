@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const token = require('./token.json');
 
 client.on('ready', () => {
-    client.user.setActivity('Type !register to start a game.');
+    client.user.setActivity('Checking mangakakalot.com');
     console.log('Bot has been launched without issues!');
 });
 

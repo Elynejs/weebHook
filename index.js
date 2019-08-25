@@ -41,7 +41,7 @@ scrap();
 
 const check = () => {
     let i;
-    for (i = 0; i <= str.length; i++) {
+    for (i = 0; i < str.length; i++) {
         if (str[i] in track) {
             released.push(str);
         }
@@ -53,28 +53,32 @@ check();
 setInterval(scrap, 1000 * 60 * 60);
 setInterval(check, 1000 * 60 * 60);
 
-client.on('Message', msg => {
+client.on('message', msg => {
     if (msg.author.bot) return;
     if (msg.content.indexOf(token.prefix) !== 0) return;
-    const args = msg.content.slice(token.prefix.length).trim().split(/ +/g);
+    const args = msg.content.slice(token.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     if (command === 'add') {
-        if (args.length) {
-            track.push(args.replace(/,+/g, ' '));
-            msg.channel.send('Added ' + args.replace(/,+/g, ' ') + ' to your list of tracked manga.');
+        if (args) {
+            track.push(args)
+            msg.channel.send('Added ' + args + ' to your list of tracked manga.');
         } else {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.'+
             '\nNote that this is case sensitive so just copy/paste it from the site.');
         }
     } else if (command === 'list') {
-        let i;
-        for (i = 0; i <= track.length; i++) {
-            msg.channel.send(track[i]);
+        if (track.length) {
+            let i;
+            for (i = 0; i < track.length; i++) {
+                msg.channel.send(track[i]);
+            }
+        } else {
+            msg.channel.send('Your tracking list is empty.');
         }
     } else if (command === 'check') {
-        if (released) {
+        if (released.length) {
             let i;
-            for (i = 0; i <= released.length; i++) {
+            for (i = 0; i < released.length; i++) {
                 msg.channel.send('The manga ' + released[i] + ' has a new chapter to check out.');
             }
         } else {

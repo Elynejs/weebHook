@@ -37,6 +37,8 @@ const scrap = () => {
         });
     };
 
+scrap();
+
 const check = () => {
     let i;
     for (i = 0; i <= str.length; i++) {
@@ -45,6 +47,8 @@ const check = () => {
         }
     }
 }
+
+check();
 
 setInterval(scrap, 1000 * 60 * 60);
 setInterval(check, 1000 * 60 * 60);

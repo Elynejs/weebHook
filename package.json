@@ -18,5 +18,11 @@
   "homepage": "https://github.com/Elynejs/weebhook#readme",
   "devDependencies": {
     "eslint": "^6.2.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "discord.js": "^11.5.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   }
 }

@@ -4,6 +4,11 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = require('./token.json');
 
+client.on('ready', () => {
+    client.user.setActivity('Type !register to start a game.');
+    console.log('Bot has been launched without issues!');
+});
+
 const options = {
     url: `https://mangakakalot.com/latest`,
     transform: ((body) => {
@@ -62,9 +67,13 @@ client.on('Message', msg => {
             msg.channel.send(track[i]);
         }
     } else if (command === 'check') {
-        let i;
-        for (i = 0; i <= released.length; i++) {
-            msg.channel.send('The manga ' + released[i] + ' has a new chapter to check out.');
+        if (released) {
+            let i;
+            for (i = 0; i <= released.length; i++) {
+                msg.channel.send('The manga ' + released[i] + ' has a new chapter to check out.');
+            }
+        } else {
+            msg.channel.send('No manga you track was updated.');
         }
     } else if (command === 'read') {
         released = [];

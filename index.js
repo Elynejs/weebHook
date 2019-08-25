@@ -1,13 +1,14 @@
 const ch = require('cheerio');
 const rp = require('request-promise');
 const Discord = require('discord.js');
-const client = Discord.Client();
-const token = require('token.json');
+const client = new Discord.Client();
+const token = require('./token.json');
+
 const options = {
     url: `https://mangakakalot.com/latest`,
-    transform: function(body) {
+    transform: ((body) => {
         return ch.load(body);
-    }
+    })
 };
 
 let rawStr;
@@ -16,6 +17,8 @@ let track = [];
 let released = [];
 
 const scrap = () => {
+    rawStr = '';
+    str = [];
     rp(options)
         .then((body) => {
             body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
@@ -58,10 +61,17 @@ client.on('Message', msg => {
         for (i = 0; i <= track.length; i++) {
             msg.channel.send(track[i]);
         }
+    } else if (command === 'check') {
+        let i;
+        for (i = 0; i <= released.length; i++) {
+            msg.channel.send('The manga ' + released[i] + ' has a new chapter to check out.');
+        }
+    } else if (command === 'read') {
+        released = [];
+        msg.channel.send('Reset the released array.');
     } else {
         msg.channel.send('You failed to type a recognized command');
     }
 })
 
-
-client.login(token);
+client.login(token.token);

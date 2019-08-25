@@ -1,0 +1,22 @@
+{
+  "name": "weebhook",
+  "version": "1.0.0",
+  "description": "webhook for discord that checks for updates on specified mangas on mangakakalot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elynejs/weebhook.git"
+  },
+  "author": "Elyne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Elynejs/weebhook/issues"
+  },
+  "homepage": "https://github.com/Elynejs/weebhook#readme",
+  "devDependencies": {
+    "eslint": "^6.2.2"
+  }
+}

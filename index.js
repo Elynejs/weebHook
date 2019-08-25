@@ -9,12 +9,14 @@ const options = {
     }
 };
 
+let str;
 let mangas = [];
 
 rp(options)
     .then((body) => {
         body('li').each((i, elem) => {
-            mangas[i] = body(elem).text();
+            str = body(elem).text();
+            mangas[i] = str.replace(/[\n\r]/g, ' ').trim();
             console.log(mangas);
         });
     })

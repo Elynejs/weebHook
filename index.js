@@ -10,72 +10,82 @@ client.on('ready', () => {
 });
 
 const options = {
-    url: `https://mangakakalot.com/latest`,
+    url: 'https://mangakakalot.com/latest',
     transform: ((body) => {
         return ch.load(body);
-    })
+    }),
 };
 
 let rawStr;
 let str = [];
-let track = [];
+const track = [];
 let released = [];
 
 const scrap = () => {
+    console.log('scrapped');
     rawStr = '';
     str = [];
     rp(options)
         .then((body) => {
-            body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
+            body('.list-truyen-item-wrap').children('h3').each((elem) => {
                 rawStr = body(elem).text();
                 str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
-                }
-            )}
-            )
+            }
+            );
+            console.log(str);
+        }
+        )
         .catch((err) => {
-            console.log('HTTP Request encountered an error. This is likely due to a server maintenance.' + err);
+            console.log('HTTP Request encountered an error. This is likely due to a server maintenance. ' + err);
         });
-    };
+};
 
 scrap();
 
 const check = () => {
+    console.log('checked');
     let i;
+    let j;
     for (i = 0; i < str.length; i++) {
-        if (str[i] in track) {
-            released.push(str);
+        for (j = 0; j < track.length; j++) {
+            console.log(track[j] + ' ' + str[i]);
+            if (str[i].includes(track[j])) {
+                released.push(str[i]);
+                console.log(`The manga ${str[i]} was added to the released list here ${released} from ${track[j]}`);
+            }
         }
     }
-}
+};
 
-check();
-
-setInterval(scrap, 1000 * 60 * 60);
-setInterval(check, 1000 * 60 * 60);
+setInterval(scrap(), 1000 * 60 * 60);
+setInterval(check(), 1000 * 60 * 60);
 
 client.on('message', msg => {
     if (msg.author.bot) return;
     if (msg.content.indexOf(token.prefix) !== 0) return;
-    const args = msg.content.slice(token.prefix.length).trim().split(/ +/);
+    const args = msg.content.slice(token.prefix.length).trim().split(/ /);
     const command = args.shift().toLowerCase();
     if (command === 'add') {
-        if (args) {
-            track.push(args)
-            msg.channel.send('Added ' + args + ' to your list of tracked manga.');
+        if (args.length) {
+            let name = String();
+            args.forEach((word) => { name += `${word} `;});
+            track.push(name.trim());
+            msg.channel.send('Added ' + name.trim() + ' to your list of tracked manga.');
         } else {
-            msg.channel.send('Please specify the name of the manga you want to add to your tracking.'+
+            msg.channel.send('Please specify the name of the manga you want to add to your tracking.' +
             '\nNote that this is case sensitive so just copy/paste it from the site.');
         }
     } else if (command === 'list') {
         if (track.length) {
             let i;
             for (i = 0; i < track.length; i++) {
-                msg.channel.send(track[i]);
+                msg.channel.send(track[i] + ' is in your list.');
             }
         } else {
             msg.channel.send('Your tracking list is empty.');
         }
     } else if (command === 'check') {
+        check;
         if (released.length) {
             let i;
             for (i = 0; i < released.length; i++) {
@@ -86,10 +96,10 @@ client.on('message', msg => {
         }
     } else if (command === 'read') {
         released = [];
-        msg.channel.send('Reset the released array.');
+        msg.channel.send('Marked every released chapter as read.');
     } else {
         msg.channel.send('You failed to type a recognized command');
     }
-})
+});
 
 client.login(token.token);

@@ -2,6 +2,7 @@ const ch = require('cheerio');
 const rp = require('request-promise');
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const fs = require('fs');
 const token = require('./token.json');
 
 client.on('ready', () => {
@@ -18,7 +19,7 @@ const options = {
 
 let rawStr;
 const str = [];
-const track = [];
+const track = require('./mangaList.json');
 let released = [];
 
 const scrap = () => {
@@ -27,9 +28,7 @@ const scrap = () => {
         .then((body) => {
             body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
                 rawStr = body(elem).text();
-                console.log(rawStr);
                 str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
-                console.log(str);
             }
             );
         }
@@ -47,10 +46,9 @@ const check = () => {
     let j;
     for (i = 0; i < str.length; i++) {
         for (j = 0; j < track.length; j++) {
-            console.log(track[j] + ' ' + str[i]);
             if (str[i].includes(track[j])) {
                 released.push(str[i]);
-                console.log(`The manga ${str[i]} was added to the released list here ${released} from ${track[j]}`);
+                console.log(`The manga ${str[i]} was added to the released list.`);
             } else {
                 console.log(`${track[j]} was not equal to ${str[i]}`);
             }
@@ -59,6 +57,7 @@ const check = () => {
 };
 
 setInterval(scrap, 1000 * 60 * 60);
+setInterval(check, 1000 * 60 * 60);
 
 client.on('message', msg => {
     if (msg.author.bot) return;
@@ -70,6 +69,10 @@ client.on('message', msg => {
             let name = String();
             args.forEach((word) => { name += `${word} `;});
             track.push(name.trim());
+            fs.writeFile('mangaList.json', JSON.stringify(track, undefined, 2), (err) => {
+                if (err) throw err;
+                console.log('manga list has successfully been saved');
+            });
             msg.channel.send('Added ' + name.trim() + ' to your list of tracked manga.');
         } else {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.' +
@@ -80,16 +83,12 @@ client.on('message', msg => {
             let i;
             for (i = 0; i < track.length; i++) {
                 msg.channel.send(track[i] + ' is in your list.');
-                console.log(track[i]);
             }
         } else {
             msg.channel.send('Your tracking list is empty.');
         }
     } else if (command === 'check') {
         check();
-        console.log(released);
-        console.log(track);
-        console.log(str);
         if (released.length) {
             let i;
             for (i = 0; i < released.length; i++) {

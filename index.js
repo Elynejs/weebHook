@@ -17,22 +17,21 @@ const options = {
 };
 
 let rawStr;
-let str = [];
+const str = [];
 const track = [];
 let released = [];
 
 const scrap = () => {
     console.log('scrapped');
-    rawStr = '';
-    str = [];
     rp(options)
         .then((body) => {
-            body('.list-truyen-item-wrap').children('h3').each((elem) => {
+            body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
                 rawStr = body(elem).text();
+                console.log(rawStr);
                 str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
+                console.log(str);
             }
             );
-            console.log(str);
         }
         )
         .catch((err) => {
@@ -52,13 +51,14 @@ const check = () => {
             if (str[i].includes(track[j])) {
                 released.push(str[i]);
                 console.log(`The manga ${str[i]} was added to the released list here ${released} from ${track[j]}`);
+            } else {
+                console.log(`${track[j]} was not equal to ${str[i]}`);
             }
         }
     }
 };
 
-setInterval(scrap(), 1000 * 60 * 60);
-setInterval(check(), 1000 * 60 * 60);
+setInterval(scrap, 1000 * 60 * 60);
 
 client.on('message', msg => {
     if (msg.author.bot) return;
@@ -80,12 +80,16 @@ client.on('message', msg => {
             let i;
             for (i = 0; i < track.length; i++) {
                 msg.channel.send(track[i] + ' is in your list.');
+                console.log(track[i]);
             }
         } else {
             msg.channel.send('Your tracking list is empty.');
         }
     } else if (command === 'check') {
-        check;
+        check();
+        console.log(released);
+        console.log(track);
+        console.log(str);
         if (released.length) {
             let i;
             for (i = 0; i < released.length; i++) {

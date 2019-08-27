@@ -45,16 +45,30 @@ const check = () => {
     checked++;
     let i;
     let j;
+    let k;
     for (i = 0; i < str.length; i++) {
-        if (str[i].includes(track)) {
-            if (str[i].includes(released)) {
-                return;
-            } else {
-                released.push(str[i]);
-                console.log(`The manga ${str[i]} was added to the released list.`);
+        for (j = 0; j < track.length; j++) {
+            if (released.length) {
+                for (k = 0; k < released.length; k++) {
+                    if (str[i].includes(track[j])) {
+                        if (str[i].includes(released[k])) {
+                            return;
+                        } else {
+                            released.push(str[i]);
+                            console.log(`The manga ${str[i]} was added to the released list.`);
+                        }
+                    } else {
+                        console.log(`${track[j]} was not equal to ${str[i]}`);
+                    }
+                }
+            } else if (!released.length) {
+                if (str[i].includes(track[j])) {
+                    released.push(str[i]);
+                    console.log(`The manga ${str[i]} was added to the released list.`);
+                } else {
+                    console.log(`${track[j]} was not equal to ${str[i]}`);
+                }
             }
-        } else {
-            console.log(`${track[j]} was not equal to ${str[i]}`);
         }
     }
 };

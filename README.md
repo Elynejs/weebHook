@@ -5,7 +5,7 @@ Discord bot that checks every hour the last release of mangakakalot.com and comp
 ## Installation
 
 You first need to install Node.js and then [download](https://github.com/Elynejs/weebHook/archive/master.zip) the bot
-Then go extract the zip in a folder and there create a token.json file with your token and preferred prefix like so :
+then go extract the zip in a folder and there create a token.json file with your token and preferred prefix like so :
 
 ```json
 {

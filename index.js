@@ -60,7 +60,7 @@ const check = () => {
                     }
                 }
             } else if (!released.length) {
-                if (str[i].includes(track[j])) {
+                if (!str[i].includes(track[j])) {
                     released.push(str[i]);
                     console.log(`The manga ${str[i]} was added to the released list.`);
                 } else {

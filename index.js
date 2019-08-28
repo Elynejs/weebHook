@@ -51,9 +51,7 @@ const check = () => {
             if (released.length) {
                 for (k = 0; k < released.length; k++) {
                     if (str[i].includes(track[j])) {
-                        if (str[i].includes(released[k])) {
-                            return;
-                        } else {
+                        if (!str[i].includes(released[k])) {
                             released.push(str[i]);
                             console.log(`The manga ${str[i]} was added to the released list.`);
                         }

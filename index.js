@@ -11,7 +11,7 @@ const client = new Discord.Client();
 let checked = 0;
 let rawStr;
 const str = [];
-let released = [];
+let released = ['0'];
 
 client.on('ready', () => {
     client.user.setActivity('Checking mangakakalot.com');
@@ -54,8 +54,6 @@ const check = () => {
                 } else {
                     console.log(`${str[i]} was already in the released array.`);
                 }
-            } else {
-                console.log(`${track[j]} was not equal to ${str[i]}`);
             }
         }
     }
@@ -95,9 +93,9 @@ client.on('message', msg => {
     } else if (command === 'check') {
         check();
         msg.channel.send(`The bot checked ${checked} times for new releases since last time.`);
-        if (released.length) {
+        if (released.length > 1) {
             let i;
-            for (i = 0; i < released.length; i++) {
+            for (i = 1; i < released.length; i++) {
                 msg.channel.send(`The manga ${released[i]} has a new chapter to check out.`);
             }
         } else {

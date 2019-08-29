@@ -10,7 +10,7 @@ then go extract the zip in a folder and there create a token.json file with your
 ```json
 {
     "token": "your-token",
-    "prefix": "your-prefix"
+    "prefix": "."
 }
 ```
 

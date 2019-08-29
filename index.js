@@ -45,34 +45,24 @@ const check = () => {
     checked++;
     let i;
     let j;
-    let k;
     for (i = 0; i < str.length; i++) {
         for (j = 0; j < track.length; j++) {
-            if (released.length) {
-                for (k = 0; k < released.length; k++) {
-                    if (str[i].includes(track[j])) {
-                        if (!str[i].includes(released[k])) {
-                            released.push(str[i]);
-                            console.log(`The manga ${str[i]} was added to the released list.`);
-                        }
-                    } else {
-                        console.log(`${track[j]} was not equal to ${str[i]}`);
-                    }
-                }
-            } else if (!released.length) {
-                if (!str[i].includes(track[j])) {
+            if (str[i].includes(track[j])) {
+                if (released.every(value => { value !== str[i]; })) {
                     released.push(str[i]);
                     console.log(`The manga ${str[i]} was added to the released list.`);
                 } else {
-                    console.log(`${track[j]} was not equal to ${str[i]}`);
+                    console.log(`${str[i]} was already in the released array.`);
                 }
+            } else {
+                console.log(`${track[j]} was not equal to ${str[i]}`);
             }
         }
     }
 };
 
-setInterval(scrap, 1000 * 60 * 60);
-setInterval(check, 1000 * 60 * 60);
+setInterval(scrap, 1000 * 60 * 30);
+setInterval(check, 1000 * 60 * 30);
 
 client.on('message', msg => {
     if (msg.author.bot) return;

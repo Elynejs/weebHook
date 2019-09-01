@@ -23,19 +23,11 @@ The bot will automatically check but you will have to call yourself the bot for 
 The available commands are :
 
 ```markdown
-> .add "title of the manga to add"
+> .add "title of the manga to add" : This adds a manga to mangaList.json
 
-`This adds a manga to mangaList.json`
+> .list : Displays your list of mangas tracked
 
-> .list
+> .read : Removes every chapters from the release array (after you have read them)
 
-`Displays your list of mangas tracked`
-
-> .read
-
-`Removes every chapters from the release array (after you have read them)`
-
-> .check
-
-`Displays every new release that happenend since the last time you used the read command`
+> .check : Displays every new release that happenend since the last time you used the read command
 ```

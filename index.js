@@ -10,7 +10,7 @@ const track = require('./mangaList.json');
 const client = new Discord.Client();
 let checked = 0;
 let rawStr;
-const str = [];
+let str = [];
 let released = [];
 
 client.on('ready', () => {
@@ -31,7 +31,7 @@ const scrap = () => {
         .then((body) => {
             body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
                 rawStr = body(elem).text();
-                str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
+                str = rawStr.replace(/[\n\r,]/g, ' ').trim();
             }
             );
         }
@@ -83,6 +83,9 @@ client.on('message', msg => {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.' +
             '\nNote that this is case sensitive so just copy/paste it from the site.');
         }
+    } else if (command === 'scrap') {
+        scrap();
+        msg.channel.send('Scrapped mangakakalot.com');
     } else if (command === 'list') {
         if (track.length) {
             let i;

@@ -43,10 +43,8 @@ const scrap = () => {
 
 const check = () => {
     checked++;
-    let i;
-    let j;
-    for (i = 0; i < str.length; i++) {
-        for (j = 0; j < track.length; j++) {
+    for (let i = 0; i < str.length; i++) {
+        for (let j = 0; j < track.length; j++) {
             if (str[i].includes(track[j])) {
                 if (released.every((value, index) => {
                     released[index] === str[i];

@@ -88,7 +88,7 @@ client.on('message', msg => {
         if (track.length) {
             let i;
             for (i = 0; i < track.length; i++) {
-                msg.channel.send(`${track[i]} is in your list.`);
+                msg.channel.send(track);
             }
         } else {
             msg.channel.send('Your tracking list is empty.');

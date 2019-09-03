@@ -48,7 +48,10 @@ const check = () => {
     for (i = 0; i < str.length; i++) {
         for (j = 0; j < track.length; j++) {
             if (str[i].includes(track[j])) {
-                if (released.every(value => {released[value] === str[i];})) {
+                if (released.every((value, index) => {
+                    released[index] === str[i];
+                    console.log(`${released[index]} is different than ${str[i]}, if only one is the same then this returns false`);
+                })) {
                     released.push(str[i]);
                     console.log(`The manga ${str[i]} was added to the released list.`);
                 } else {

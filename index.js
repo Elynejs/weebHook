@@ -10,8 +10,8 @@ const track = require('./mangaList.json');
 const client = new Discord.Client();
 let checked = 0;
 let rawStr;
-let str = [];
-let released = [];
+const str = Array();
+let released = Array();
 
 client.on('ready', () => {
     client.user.setActivity('Checking mangakakalot.com');
@@ -31,7 +31,7 @@ const scrap = () => {
         .then((body) => {
             body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
                 rawStr = body(elem).text();
-                str = rawStr.replace(/[\n\r,]/g, ' ').trim();
+                str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
             }
             );
         }
@@ -105,7 +105,7 @@ client.on('message', msg => {
             msg.channel.send('No manga you track was updated.');
         }
     } else if (command === 'read') {
-        released = [];
+        released = Array();
         msg.channel.send('Marked every released chapter as read.');
     } else {
         msg.channel.send('You failed to type a recognized command');

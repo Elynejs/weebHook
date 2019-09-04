@@ -47,7 +47,7 @@ const check = () => {
         for (let j = 0; j < track.length; j++) {
             if (str[i].includes(track[j])) {
                 if (released.forEach((value, index) => {
-                    released[index] === str[i];
+                    released[index] !== str[i];
                     console.log(`${released[index]} is different than ${str[i]}, if only one is the same then this returns false`);
                 }
                 )) {

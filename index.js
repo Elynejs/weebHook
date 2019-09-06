@@ -59,7 +59,7 @@ const check = () => {
     }
 };
 
-setInterval(scrap, 1000 * 60 * 30);
+setInterval(scrap, 1000 * 60 * 60);
 setInterval(check, 1000 * 60 * 30);
 
 client.on('message', msg => {

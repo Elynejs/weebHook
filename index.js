@@ -10,8 +10,8 @@ const track = require('./mangaList.json');
 const client = new Discord.Client();
 let checked = 0;
 let rawStr;
-const str = Array();
-let released = Array();
+const str = [];
+let released = [];
 
 client.on('ready', () => {
     client.user.setActivity('Checking mangakakalot.com');
@@ -46,14 +46,12 @@ const check = () => {
     for (let i = 0; i < str.length; i++) {
         for (let j = 0; j < track.length; j++) {
             if (str[i].includes(track[j])) {
-                if (released.every((value) => {
-                    value !== str[i];
-                })) {
+                while (!released.includes(str[i])) {
                     released.push(str[i]);
                     console.log(`The manga ${str[i]} was added to the released list.`);
-                } else {
-                    console.log(`${str[i]} was already in the released array.`);
+                    break;
                 }
+                console.log(`${str[i]} was updated`);
             }
         }
     }

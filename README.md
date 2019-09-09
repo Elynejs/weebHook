@@ -21,20 +21,20 @@ node index.js in powershell
 
 The bot will automatically check but you will have to call yourself the bot for it to display new releases (will probably change it in the future)
 The available commands are :
+```
+ .add "title of the manga to add"
 
-> .add "title of the manga to add"
+   This adds a manga to mangaList.json
 
->   This adds a manga to mangaList.json
+ .list
 
-> .list
+   Displays your list of mangas tracked
 
->   Displays your list of mangas tracked
+ .read
 
-> .read
+   Removes every chapters from the release array
 
->   Removes every chapters from the release array
+ .check
 
-> .check
-
->   Displays every new release that happenend since the last time you used the read command
-
+   Displays every new release that happenend since the last time you used the read command
+```

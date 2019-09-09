@@ -71,7 +71,7 @@ client.on('message', msg => {
             args.forEach((word) => { name += `${word} `;});
             track.push(name.trim());
             fs.writeFile('mangaList.json', JSON.stringify(track, undefined, 2), (err) => {
-                if (err) throw err;
+                if (err) console.log(err);
                 console.log('manga list has successfully been saved');
             });
             msg.channel.send(`Added ${name.trim()} to your list of tracked manga.`);

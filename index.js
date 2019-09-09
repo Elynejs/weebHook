@@ -103,7 +103,7 @@ client.on('message', msg => {
             msg.channel.send('No manga you track was updated.');
         }
     } else if (command === 'read') {
-        released = Array();
+        released = [];
         msg.channel.send('Marked every released chapter as read.');
     } else {
         msg.channel.send('You failed to type a recognized command');

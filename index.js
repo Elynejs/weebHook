@@ -10,7 +10,7 @@ const track = require('./mangaList.json');
 const client = new Discord.Client();
 let checked = 0;
 let rawStr;
-const str = [];
+let str = [];
 let released = [];
 
 client.on('ready', () => {
@@ -26,6 +26,7 @@ const options = {
 };
 
 const scrap = () => {
+    str = [];
     console.log('scrapped');
     rp(options)
         .then((body) => {

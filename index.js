@@ -29,7 +29,7 @@ const scrap = () => {
     console.log('scrapped');
     rp(options)
         .then((body) => {
-            body('.list-truyen-item-wrap').children('h3').each((i, elem) => {
+            body('.list-truyen-item-wrap').children('h3').each((_i, elem) => {
                 rawStr = body(elem).text();
                 str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
             }

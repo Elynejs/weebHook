@@ -20,8 +20,10 @@ node index.js in powershell
 ### Usage
 
 The bot will automatically check but you will have to call yourself the bot for it to display new releases (will probably change it in the future)
+
 The available commands are :
-```
+
+```json
 .add "title of the manga to add"
 
    This adds a manga to mangaList.json

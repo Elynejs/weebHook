@@ -85,7 +85,7 @@ client.on('message', msg => {
         if (track.length) {
             let i;
             for (i = 0; i < track.length; i++) {
-                msg.channel.send(`${track[i]} is in the list.\n${track.length - (i + 1)} mangas remaining in the list.`);
+                msg.channel.send(`${track[i]} is in the list.\n${track.length - (i + 1)}/${track.length} mangas remaining in the list.`);
             }
         } else {
             msg.channel.send('Your tracking list is empty.');

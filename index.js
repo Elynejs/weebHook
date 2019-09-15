@@ -56,8 +56,8 @@ const check = () => {
     }
 };
 
-setInterval(scrap, 1000 * 60 * 60);
-setInterval(check, 1000 * 60 * 30);
+setInterval(scrap, 1000 * 60 * 10);
+setInterval(check, 1000 * 60 * 5);
 
 client.on('message', msg => {
     if (msg.author.bot) return;

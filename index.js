@@ -108,13 +108,16 @@ client.on('message', msg => {
         msg.channel.send('Scrapped mangakakalot.com');
     } else if (command === 'list') {
         chooseList(msg.author.id);
-        if (track.length) {
+        if (track.length > 0 && track.length < 10) {
             let i;
             for (i = 0; i < track.length; i++) {
                 msg.channel.send(`${track[i]} is in the list.\n${track.length - (i + 1)}/${track.length} mangas remaining in the list.`);
             }
-        } else {
+        } else if (track.length === 0) {
             msg.channel.send('Your tracking list is empty.');
+        } else if (track.length >= 10) {
+            msg.channel.send(`Your tracking list contains ${track.length} mangas. If you have more than 10 the list won't display.\n
+            To see it go to ./lists/${msg.author.id}_list.json`);
         }
     } else if (command === 'check') {
         check(msg.author.id);

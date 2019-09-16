@@ -4,7 +4,8 @@ const rp = require('request-promise');
 const Discord = require('discord.js');
 const fs = require('fs');
 const token = require('./token.json');
-const track = require('./mangaList.json');
+let track;
+const userIDs = require('./userIDs.json');
 
 // Initializing global vars
 const client = new Discord.Client();
@@ -26,7 +27,6 @@ const options = {
 };
 
 const scrap = () => {
-    str = [];
     console.log('scrapped');
     rp(options)
         .then((body) => {
@@ -40,7 +40,25 @@ const scrap = () => {
         });
 };scrap();
 
-const check = () => {
+const chooseList = (message) => {
+    if (userIDs.includes(message.user.id)) {
+        track = require(`./lists/${message.user.id}_list.json`);
+    } else {
+        userIDs.push(message.user.id);
+        fs.writeFile('./userIDs.json', JSON.stringify(track, undefined, 2), (err) => {
+            if (err) console.log(err);
+            console.log('ID list has successfully been updated');
+        });
+        track = [];
+        fs.writeFile(`./lists/${message.user.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
+            if (err) console.log(err);
+            console.log('manga list has successfully been created');
+        });
+    }
+};
+
+const check = (message) => {
+    chooseList(message);
     checked++;
     for (let i = 0; i < str.length; i++) {
         for (let j = 0; j < track.length; j++) {
@@ -54,10 +72,10 @@ const check = () => {
             }
         }
     }
+    str = [];
 };
 
 setInterval(scrap, 1000 * 60 * 10);
-setInterval(check, 1000 * 60 * 5);
 
 client.on('message', msg => {
     if (msg.author.bot) return;
@@ -69,7 +87,7 @@ client.on('message', msg => {
             let name = String();
             args.forEach((word) => { name += `${word} `;});
             track.push(name.trim());
-            fs.writeFile('mangaList.json', JSON.stringify(track, undefined, 2), (err) => {
+            fs.writeFile(`./lists/${msg.user.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
                 if (err) console.log(err);
                 console.log('manga list has successfully been saved');
             });
@@ -91,7 +109,7 @@ client.on('message', msg => {
             msg.channel.send('Your tracking list is empty.');
         }
     } else if (command === 'check') {
-        check();
+        check(msg);
         msg.channel.send(`The bot checked ${checked} times for new releases since last time.`);
         if (released.length) {
             let i;

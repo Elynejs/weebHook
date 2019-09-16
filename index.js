@@ -47,7 +47,7 @@ const chooseList = id => {
     } else {
         userIDs.push(id);
         console.log(`pushed ${id} to the userIDs list, creating manga list`);
-        fs.writeFile('./userIDs.json', JSON.stringify(track, undefined, 2), (err) => {
+        fs.writeFile('./userIDs.json', JSON.stringify(userIDs, undefined, 2), (err) => {
             if (err) console.log(err);
             console.log('ID list has successfully been updated');
         });

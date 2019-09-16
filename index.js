@@ -127,8 +127,35 @@ client.on('message', msg => {
     } else if (command === 'read') {
         released = [];
         msg.channel.send('Marked every released chapter as read.');
+    } else if (command === 'help') {
+        msg.channel.send({
+            embed: {
+                color: 16286691,
+                title: '__**List of all commands**__',
+                fields: [{
+                    name: '**Adding a manga**',
+                    value: '```.add [name] => Adds a manga to your tracking list```',
+                },
+                {
+                    name: '**List**',
+                    value: '```.list => Lists every tracked manga in your list```',
+                },
+                {
+                    name: '**Read the chapter**',
+                    value: '```.read => Removes every manga from the released list, to use after youu have read them```',
+                },
+                {
+                    name: '**Checking recently released manga**',
+                    value: '```.check => Check mangakakalot for recently released manga and check if they are in your track list```',
+                },
+                {
+                    name: '**Scrapping the site**',
+                    value: '```.scrap => Manualy scrap mangakakalot for new release```',
+                }],
+            },
+        });
     } else {
-        msg.channel.send('You failed to type a recognized command');
+        msg.channel.send('This is not a recognized command. Please refer to .help to see available commands.');
     }
 });
 

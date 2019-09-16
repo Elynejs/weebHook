@@ -84,14 +84,19 @@ client.on('message', msg => {
     const command = args.shift().toLowerCase();
     if (command === 'add') {
         if (args.length) {
+            chooseList(msg);
             let name = String();
             args.forEach((word) => { name += `${word} `;});
-            track.push(name.trim());
-            fs.writeFile(`./lists/${msg.user.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
-                if (err) console.log(err);
-                console.log('manga list has successfully been saved');
-            });
-            msg.channel.send(`Added ${name.trim()} to your list of tracked manga.`);
+            if (!track.includes(name.trim())) {
+                track.push(name.trim());
+                fs.writeFile(`./lists/${msg.user.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
+                    if (err) console.log(err);
+                    console.log('manga list has successfully been saved');
+                });
+                msg.channel.send(`Added ${name.trim()} to your list of tracked manga.`);
+            } else {
+                msg.channel.send(`${name.trim()} was already in your list.`);
+            }
         } else {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.' +
             '\nNote that this is case sensitive so just copy/paste it from the site.');

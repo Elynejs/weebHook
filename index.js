@@ -40,25 +40,27 @@ const scrap = () => {
         });
 };scrap();
 
-const chooseList = (message) => {
-    if (userIDs.includes(message.user.id)) {
-        track = require(`./lists/${message.user.id}_list.json`);
+const chooseList = id => {
+    if (userIDs.includes(id)) {
+        track = require(`./lists/${id}_list.json`);
+        console.log(`loaded ${id}_list.json as the tracked manga list`);
     } else {
-        userIDs.push(message.user.id);
+        userIDs.push(id);
+        console.log(`pushed ${id} to the userIDs list, creating manga list`);
         fs.writeFile('./userIDs.json', JSON.stringify(track, undefined, 2), (err) => {
             if (err) console.log(err);
             console.log('ID list has successfully been updated');
         });
         track = [];
-        fs.writeFile(`./lists/${message.user.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
+        fs.writeFile(`./lists/${id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
             if (err) console.log(err);
             console.log('manga list has successfully been created');
         });
     }
 };
 
-const check = (message) => {
-    chooseList(message);
+const check = id => {
+    chooseList(id);
     checked++;
     for (let i = 0; i < str.length; i++) {
         for (let j = 0; j < track.length; j++) {
@@ -84,12 +86,12 @@ client.on('message', msg => {
     const command = args.shift().toLowerCase();
     if (command === 'add') {
         if (args.length) {
-            chooseList(msg);
+            chooseList(msg.author.id);
             let name = String();
             args.forEach((word) => { name += `${word} `;});
             if (!track.includes(name.trim())) {
                 track.push(name.trim());
-                fs.writeFile(`./lists/${msg.user.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
+                fs.writeFile(`./lists/${msg.author.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
                     if (err) console.log(err);
                     console.log('manga list has successfully been saved');
                 });
@@ -105,6 +107,7 @@ client.on('message', msg => {
         scrap();
         msg.channel.send('Scrapped mangakakalot.com');
     } else if (command === 'list') {
+        chooseList(msg.author.id);
         if (track.length) {
             let i;
             for (i = 0; i < track.length; i++) {
@@ -114,7 +117,7 @@ client.on('message', msg => {
             msg.channel.send('Your tracking list is empty.');
         }
     } else if (command === 'check') {
-        check(msg);
+        check(msg.author.id);
         msg.channel.send(`The bot checked ${checked} times for new releases since last time.`);
         if (released.length) {
             let i;

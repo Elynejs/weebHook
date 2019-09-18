@@ -24,11 +24,13 @@ The bot will automatically check but you will have to call yourself the bot for 
 The available commands are :
 
 ```discord.js
-.add [title] => This adds a manga to mangaList.json
+.add [title] => This adds a manga to your tracked list
 
-.list => Displays your list of mangas tracked
+.list => Displays your list of tracked mangas
 
 .read => Removes every chapters from the release array
 
 .check => Displays every new release that happenend since the last time you used the read command
+
+.remove [title] => Removes a manga from your tracked list
 ```

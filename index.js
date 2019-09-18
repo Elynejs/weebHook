@@ -95,12 +95,36 @@ client.on('message', msg => {
                     if (err) console.log(err);
                     console.log('manga list has successfully been saved');
                 });
-                msg.channel.send(`Added ${name.trim()} to your list of tracked manga.`);
+                msg.channel.send(`Added ${name.trim()} to your list of tracked manga(s).`);
             } else {
                 msg.channel.send(`${name.trim()} was already in your list.`);
             }
         } else {
             msg.channel.send('Please specify the name of the manga you want to add to your tracking.' +
+            '\nNote that this is case sensitive so just copy/paste it from the site.');
+        }
+    } else if (command === 'remove') {
+        if (args.length) {
+            chooseList(msg.author.id);
+            let name = String();
+            args.forEach((word) => { name += `${word} `;});
+            if (track.includes(name.trim())) {
+                for (let i = 0; i < track.length; i++) {
+                    if (track[i] === name) {
+                        track.splice(i, 1);
+                        fs.writeFile(`./lists/${msg.author.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
+                            if (err) console.log(err);
+                            console.log('manga list has successfully been saved');
+                        });
+                        msg.channel.send(`Removed ${name.trim()} of your list of tracked manga(s).`);
+                        break;
+                    }
+                }
+            } else {
+                msg.channel.send(`${name.trim()} was not in your list`);
+            }
+        } else {
+            msg.channel.send('Please specify the name of the manga you want to remove of your tracking.' +
             '\nNote that this is case sensitive so just copy/paste it from the site.');
         }
     } else if (command === 'scrap') {
@@ -158,6 +182,10 @@ client.on('message', msg => {
                 {
                     name: '**Scrapping the site**',
                     value: '```.scrap => Manualy scrap mangakakalot for new release```',
+                },
+                {
+                    name: '**Removing a manga**',
+                    value: '```.remove [name] => Removes a manga of your tracking list```',
                 }],
             },
         });

@@ -166,24 +166,19 @@ client.on('message', msg => {
                 fields: [{
                     name: '**Adding a manga**',
                     value: '```.add [name] => Adds a manga to your tracking list```',
-                },
-                {
+                }, {
                     name: '**List**',
                     value: '```.list => Lists every tracked manga in your list```',
-                },
-                {
+                }, {
                     name: '**Read the chapter**',
                     value: '```.read => Removes every manga from the released list, to use after youu have read them```',
-                },
-                {
+                }, {
                     name: '**Checking recently released manga**',
                     value: '```.check => Check mangakakalot for recently released manga and check if they are in your track list```',
-                },
-                {
+                }, {
                     name: '**Scrapping the site**',
                     value: '```.scrap => Manualy scrap mangakakalot for new release```',
-                },
-                {
+                }, {
                     name: '**Removing a manga**',
                     value: '```.remove [name] => Removes a manga of your tracking list```',
                 }],

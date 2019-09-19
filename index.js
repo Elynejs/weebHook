@@ -31,8 +31,8 @@ const scrap = () => {
         .then((body) => {
             body('.list-truyen-item-wrap').children('h3').each((_i, elem) => {
                 rawStr = body(elem).text();
-                str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
-                console.log(`${rawStr}`);
+                str.push(rawStr.replace(/[\n\r]/g, ' ').trim());
+                console.log(`${rawStr.replace(/[\n\r]/g, ' ').trim()}`);
             });
         })
         .catch((err) => {
@@ -101,8 +101,8 @@ client.on('message', msg => {
                 msg.channel.send(`${name.trim()} was already in your list.`);
             }
         } else {
-            msg.channel.send('Please specify the name of the manga you want to add to your tracking.' +
-            '\nNote that this is case sensitive so just copy/paste it from the site.');
+            msg.channel.send(`Please specify the name of the manga you want to add to your tracking.\n
+            Note that this is case sensitive so just copy/paste it from the site.`);
         }
     } else if (command === 'remove') {
         if (args.length) {
@@ -111,14 +111,14 @@ client.on('message', msg => {
             args.forEach((word) => { name += `${word} `;});
             if (track.includes(name.trim())) {
                 for (let i = 0; i < track.length; i++) {
-                    if (track[i] === name) {
+                    if (name.trim() === track[i]) {
+                        console.log(`removed ${name.trim()} of the list ${msg.author.id}_list.json`);
                         track.splice(i, 1);
                         fs.writeFile(`./lists/${msg.author.id}_list.json`, JSON.stringify(track, undefined, 2), (err) => {
                             if (err) console.log(err);
                             console.log('manga list has successfully been saved');
                         });
                         msg.channel.send(`Removed ${name.trim()} of your list of tracked manga(s).`);
-                        break;
                     }
                 }
             } else {

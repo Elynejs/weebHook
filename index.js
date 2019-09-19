@@ -78,7 +78,7 @@ const check = id => {
     str = [];
 };
 
-setInterval(scrap, 1000 * 60 * 30);
+setTimeout(scrap, 1000 * 60 * 5);
 
 client.on('message', msg => {
     if (msg.author.bot) return;

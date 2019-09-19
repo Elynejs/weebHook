@@ -39,6 +39,7 @@ const scrap = () => {
             console.log('HTTP Request encountered an error. This is likely due to a server maintenance. ' + err);
         });
     console.log('scrapped');
+    setTimeout(scrap, 1000 * 60 * 5);
 };scrap();
 
 const chooseList = id => {
@@ -77,8 +78,6 @@ const check = id => {
     }
     str = [];
 };
-
-setTimeout(scrap, 1000 * 60 * 5);
 
 client.on('message', msg => {
     if (msg.author.bot) return;

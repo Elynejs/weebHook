@@ -124,8 +124,8 @@ client.on('message', msg => {
                 msg.channel.send(`${name.trim()} was not in your list`);
             }
         } else {
-            msg.channel.send('Please specify the name of the manga you want to remove of your tracking.' +
-            '\nNote that this is case sensitive so just copy/paste it from the site.');
+            msg.channel.send(`Please specify the name of the manga you want to remove of your tracking.\n
+            Note that this is case sensitive so just copy/paste it from the site.`);
         }
     } else if (command === 'scrap') {
         scrap();

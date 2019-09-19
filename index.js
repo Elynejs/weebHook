@@ -32,12 +32,13 @@ const scrap = () => {
             body('.list-truyen-item-wrap').children('h3').each((_i, elem) => {
                 rawStr = body(elem).text();
                 str.push(rawStr.replace(/[\n\r,]/g, ' ').trim());
-                console.log('scrapped');
+                console.log(`${rawStr}`);
             });
         })
         .catch((err) => {
             console.log('HTTP Request encountered an error. This is likely due to a server maintenance. ' + err);
         });
+    console.log('scrapped');
 };scrap();
 
 const chooseList = id => {

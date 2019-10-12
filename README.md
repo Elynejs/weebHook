@@ -14,8 +14,7 @@ then go extract the zip in a folder and there create a token.json file with your
 }
 ```
 
-Once this is done you can edit the mangaList.json file to only include mangas you want to follow and launch the bot by typing
-*node index.js* in powershell
+Launch the bot by typing *node index.js* in powershell
 
 ### Usage
 

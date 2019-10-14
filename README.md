@@ -14,9 +14,11 @@ then go extract the zip in a folder and there create a token.json file with your
 }
 ```
 
-Launch the bot by typing *node index.js* in powershell
+### Launch
 
-### Usage
+Simply run the .exe corresponding to your OS.
+
+#### Usage
 
 The bot will automatically check but you will have to call yourself the bot for it to display new releases (will probably change it in the future)
 

@@ -16,7 +16,7 @@ then go extract the zip in a folder and there create a token.json file with your
 
 ### Launch
 
-Simply run the .exe corresponding to your OS.
+Open cmd and type `node index.js`
 
 #### Usage
 

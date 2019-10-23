@@ -1,5 +1,7 @@
 # weebHook
 
+PROJECT IS DISCONTINUED
+
 Discord bot that checks every hour the last release of mangakakalot.com and compare it to a list of followed mangas
 
 ## Installation
